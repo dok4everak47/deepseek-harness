@@ -1,0 +1,30 @@
+name: Sync to Gitea
+
+on:
+  push:
+    branches: ['**']
+    tags: ['**']
+  delete:
+
+permissions:
+  contents: read
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Mirror clone from GitHub
+        run: |
+          git clone --mirror https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git repo.git
+          cd repo.git
+          git remote set-url --push origin ssh://git@gitea.luongchin.com:2222/dok4ever/${{ github.event.repository.name }}.git
+      - name: Push mirror to Gitea
+        env:
+          GITEA_SSH_KEY: ${{ secrets.GITEA_SSH_KEY }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$GITEA_SSH_KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -p 2222 gitea.luongchin.com >> ~/.ssh/known_hosts 2>/dev/null
+          cd repo.git
+          git push --mirror origin
