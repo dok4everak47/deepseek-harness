@@ -34,6 +34,19 @@ pnpm run build
 pnpm dsh web
 ```
 
+#### Reproducible dev shell (Nix)
+
+For contributors on Linux or macOS with [Nix](https://nixos.org/download) installed, the repository ships a `flake.nix` that pins Node.js 22, pnpm 11, Python 3 + uv, and the Rust toolchain. With [nix-direnv](https://github.com/nix-community/nix-direnv) installed, run `direnv allow` once and every shell in the checkout automatically uses those versions. Without direnv, run `nix develop`.
+
+On multi-user installs the nix-daemon performs the actual downloads from `cache.nixos.org`. Route those through a local HTTP proxy (defaults to `http://127.0.0.1:7890`) with:
+
+```sh
+sudo scripts/nix-daemon-proxy.sh on
+sudo scripts/nix-daemon-proxy.sh off
+```
+
+The dev shell itself also exports `http_proxy`/`https_proxy` to the same default; set `NIX_PROXY` to override or `NIX_PROXY=` to disable.
+
 ## Community and support
 
 - Feel free to submit feedback or bug reports through [GitHub Discussions](https://github.com/deepseek-ai/deepseek-harness/discussions).

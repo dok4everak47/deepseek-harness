@@ -34,6 +34,19 @@ pnpm run build
 pnpm dsh web
 ```
 
+#### 可复现开发环境（Nix）
+
+在 Linux 或 macOS 上安装 [Nix](https://nixos.org/download) 的贡献者，可以直接使用仓库自带的 `flake.nix`，它固定了 Node.js 22、pnpm 11、Python 3 + uv 以及 Rust 工具链。安装 [nix-direnv](https://github.com/nix-community/nix-direnv) 后，执行一次 `direnv allow`，之后进入仓库目录即自动加载这些版本；不使用 direnv 时可直接运行 `nix develop`。
+
+在多用户安装下，真正从 `cache.nixos.org` 下载二进制的是 nix-daemon。可让这些下载走本地 HTTP 代理（默认 `http://127.0.0.1:7890`）：
+
+```sh
+sudo scripts/nix-daemon-proxy.sh on
+sudo scripts/nix-daemon-proxy.sh off
+```
+
+dev shell 本身也会把 `http_proxy`/`https_proxy` 指向同一默认代理；可通过 `NIX_PROXY` 覆盖，或设置 `NIX_PROXY=` 关闭。
+
 ## 社区与支持
 
 - 欢迎通过 [GitHub Discussions](https://github.com/deepseek-ai/deepseek-harness/discussions) 提交反馈或 bug 报告。

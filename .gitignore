@@ -5,6 +5,7 @@ lib/
 *.tsbuildinfo
 pnpm-debug.log
 .pnpm-store/
+.pnpm-home/
 .cache/
 examples/*/*.jsonl
 .storages/
