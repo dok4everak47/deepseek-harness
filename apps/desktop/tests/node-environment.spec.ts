@@ -17,3 +17,12 @@ it('provides private launchers only to package installation processes', () => {
     PATH: `/desktop/bin${delimiter}/user/bin`,
   })
 })
+
+it('withholds an inherited NODE_PATH from the Node-mode child', () => {
+  const environment = { PATH: '/user/bin', HOME: '/user', NODE_PATH: '/foreign.app/node_modules' }
+  expect(desktopNodeEnvironment('/desktop/electron', undefined, environment)).toEqual({
+    PATH: '/user/bin', HOME: '/user', ELECTRON_RUN_AS_NODE: '1',
+  })
+  expect(desktopNodeEnvironment('/desktop/electron', '/desktop/bin', environment).NODE_PATH).toBeUndefined()
+  expect(environment).toEqual({ PATH: '/user/bin', HOME: '/user', NODE_PATH: '/foreign.app/node_modules' })
+})
