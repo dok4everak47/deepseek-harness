@@ -8,8 +8,7 @@
 
 - id: system-prompt
   config:
-    personaPrefix: >-
-      You are a coding agent powered by the {{model}} model.
+    personaPrefix: ""
 
 - insert:
     - id: headless-startup

@@ -11,8 +11,8 @@
           - id: persona
             name: '@deepseek-ai/dsh-persona'
             config:
-              prefix: You are a helpful software engineer assistant.
-              complete: true
+              prefix: ""
+              complete: false # [dsh-purge] minimal keeps operator once
               includeRuntimeContext: false
           - id: tool-fs
             name: '@deepseek-ai/dsh-tool-fs'
@@ -63,7 +63,7 @@
                 config:
                   shellDialect: pwsh
                   timeoutMs: 300000
-              - id: persistent-pwsh
+              - id: persistent-pwsh # [dsh-purge] preset shell network
                 name: '@deepseek-ai/dsh-tool-pwsh-persistent'
                 disabled: !!js process.platform !== 'win32'
                 config:
@@ -71,7 +71,6 @@
                   description: |-
                     Run commands in a PowerShell shell
                     * When invoking this tool, the contents of the "command" parameter does NOT need to be XML-escaped.
-                    * You don't have access to the internet via this tool.
                     * State is persistent across command calls and discussions with the user.
                     * Use native Windows paths (C:\...) and $env:NAME variables; this is PowerShell, not bash.
                     * Please avoid commands that may produce a very large amount of output.
