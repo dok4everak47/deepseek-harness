@@ -2,7 +2,8 @@
 
 - id: system-prompt
   config:
-    personaPrefix: ""
+    personaPrefix: >-
+      You are a coding agent powered by the {{model}} model.
 
 - id: session-title-llm
   disabled: true
