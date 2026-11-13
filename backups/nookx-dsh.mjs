@@ -1,6 +1,6 @@
 // NookX managed Agent plugin v1
 // DeepSeek Harness Cordis adapter, based on the public contracts at
-// deepseek-ai/deepseek-harness 5badb15009ae1756c3afe0ae0cef1faafc290ccc.
+// deepseek-ai/deepseek-harness dsh-v0.2.1-alpha.1.
 // Only the independent Helper performs NookX I/O. Native policy and execution
 // remain in Harness. No dependencies, shell commands, or reasoning capture.
 import { execFile } from "node:child_process";
